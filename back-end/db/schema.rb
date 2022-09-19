@@ -15,6 +15,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_19_172918) do
     t.string "agent"
     t.string "token"
     t.integer "user_id"
+    t.string "client_ip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

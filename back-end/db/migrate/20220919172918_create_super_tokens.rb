@@ -4,7 +4,7 @@ class CreateSuperTokens < ActiveRecord::Migration[7.0]
       t.string :agent
       t.string :token
       t.integer :user_id
-
+      t.string :client_ip
       t.timestamps
     end
   end
