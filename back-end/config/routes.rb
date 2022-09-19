@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :trusted_ips
   resources :banned_ips
   resources :super_tokens
   resources :users

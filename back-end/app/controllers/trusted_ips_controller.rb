@@ -1,0 +1,2 @@
+class TrustedIpsController < ApplicationController
+end
