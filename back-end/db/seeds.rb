@@ -6,5 +6,5 @@ puts "creating users"
     name = Faker::JapaneseMedia::OnePiece.character
     new_user = User.create!(username: name, email: "#{name.delete(' ')}@bounty.com", password: "123", tag: Faker::JapaneseMedia::OnePiece.island)
 end
-
+TrustedIp.create!(client_ip: "127.0.0.1",user_id: User.all.sample.id)
 puts "seeded successfully 👒🏴‍☠️"

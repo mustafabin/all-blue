@@ -5,7 +5,7 @@ class ApplicationController < ActionController::API
     def vaildate_super token
         super_token = SuperToken.find_by(token:token)
         if super_token
-            if not BannedIp.find_by(client_ip: request.remote_ip)
+            if is_vaild_ip super_token
                 if is_expired super_token.updated_at.to_i
                     super_token.destroy 
                     false
@@ -24,5 +24,12 @@ class ApplicationController < ActionController::API
         age = Time.now.to_i - time
         puts age
         expiry_time < age ? true : false
+    end
+    def is_vaild_ip super_token
+        if  BannedIp.find_by(client_ip: request.remote_ip) or super_token.client_ip != request.remote_ip
+            false 
+        else
+            true
+        end
     end
 end

@@ -53,11 +53,11 @@ class UsersController < ApplicationController
         old_token = SuperToken.find_by(user_id: user.id)
         if not old_token
           # create a super token that points to user
-          super_token = SuperToken.create!(agent: request.user_agent,token:hash,user_id:user.id)
+          super_token = SuperToken.create!(agent: request.user_agent,token:hash,user_id:user.id,client_ip: request.remote_ip)
           render json: {token: super_token.token}
         else
           old_token.destroy
-          super_token = SuperToken.create!(agent: request.user_agent,token:hash,user_id:user.id)
+          super_token = SuperToken.create!(agent: request.user_agent,token:hash,user_id:user.id,client_ip: request.remote_ip)
           render json: {token: super_token.token}
         end
     else
