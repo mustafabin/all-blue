@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::API
     def expiry_time
-        1000
+        10
     end
     def vaildate_super token
         super_token = SuperToken.find_by(token:token)
@@ -8,16 +8,16 @@ class ApplicationController < ActionController::API
             if is_vaild_ip super_token
                 if is_expired super_token.updated_at.to_i
                     super_token.destroy 
-                    false
+                    return  {error:"401 not authorized", message:"EXPIRED TOKEN"}
                 else
                     super_token.update(updated_at: Time.now)
-                    super_token.user
+                    return {user: super_token.user}
                 end
             else
-                false
+                return  {error:"401 not authorized", message:"INVAILD IP"}
             end
         else
-            false
+            return  {error:"401 not authorized", message:"TOKEN DOESNT EXISTS"}
         end
     end
     def is_expired time 

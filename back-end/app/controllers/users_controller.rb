@@ -67,12 +67,8 @@ class UsersController < ApplicationController
 
   def profile 
     # find user based of super token
-    user = vaildate_super request.headers['token']
-    if not user
-      render json: {error:"401 unAuthorized", ip: request.remote_ip}
-    else 
-      render json: {user: user, ip: request.remote_ip}
-    end
+    is_vaild = vaildate_super request.headers['token']
+    render json: is_vaild
   end
 
   private
