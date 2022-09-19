@@ -1,0 +1,2 @@
+class SuperTokensController < ApplicationController
+end

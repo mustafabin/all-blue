@@ -12,6 +12,12 @@ class UsersController < ApplicationController
   def show
     render json: @user
   end
+  def testing
+    # puts request.headers.first(10).to_h.keys
+    puts request.user_agent
+
+    render json: {message:request.user_agent}
+  end
 
   # POST /users
   def create
@@ -36,6 +42,37 @@ class UsersController < ApplicationController
   # DELETE /users/1
   def destroy
     @user.destroy
+  end
+
+  def login 
+    user = User.find_by(email:params[:email]).try(:authenticate, params[:password])
+    if user
+        hash = BCrypt::Password.create(user.id)
+        # check if a supertoken for that user exist already 
+        # THIS IS WHERE YOU COULD LIMIT IT TO X AMOUNT OF TOKENS
+        old_token = SuperToken.find_by(user_id: user.id)
+        if not old_token
+          # create a super token that points to user
+          super_token = SuperToken.create!(agent: request.user_agent,token:hash,user_id:user.id)
+          render json: {token: super_token.token}
+        else
+          old_token.destroy
+          super_token = SuperToken.create!(agent: request.user_agent,token:hash,user_id:user.id)
+          render json: {token: super_token.token}
+        end
+    else
+        render json: {message:"401 not authorized"}
+      end
+    end
+
+  def profile 
+    # find user based of super token
+    super_token = SuperToken.find_by(token:request.headers['token'])
+    if not super_token
+      render json: {error:"401 unAuthorized"}
+    else 
+      render json: super_token.user
+    end
   end
 
   private
