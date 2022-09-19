@@ -1,7 +1,12 @@
+import { Routes, Route } from "react-router-dom";
+import Landing from "./screens/Landing.jsx";
 function App() {
   return (
     <>
-      <h1> This is App </h1>
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="*" element={<h1> 404 Error content not found </h1>} />
+      </Routes>
     </>
   );
 }
