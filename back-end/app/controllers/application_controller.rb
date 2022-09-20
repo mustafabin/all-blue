@@ -11,16 +11,16 @@ class ApplicationController < ActionController::API
             if is_vaild_ip super_token
                 if is_expired super_token.updated_at.to_i
                     super_token.destroy 
-                    render json:  {error:"401 not authorized", message:"EXPIRED TOKEN"}
+                    render json:  {error:"401 not authorized", message:"EXPIRED TOKEN"}, status: 401
                 else
                     super_token.update(updated_at: Time.now)
-                    return {user: super_token.user}
+                    return super_token.user
                 end
             else
-                render json:  {error:"401 not authorized", message:"INVAILD IP"}
+                render json:  {error:"403 forbidden", message:"INVAILD IP"}, status: 403
             end
         else
-            render json:  {error:"401 not authorized", message:"TOKEN DOESNT EXISTS"}
+            render json:  {error:"401 not authorized", message:"TOKEN DOESNT EXISTS"}, status: 401
         end
     end
     def is_expired time

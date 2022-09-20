@@ -1,9 +1,15 @@
 class BannedIpsController < ApplicationController
+    skip_before_action :authorize, only: %i[ testing ]
     def ip_ban 
-        # ip ban takes all the tokens generated under the user
-        # and bans all the ips from the active tokens 
-        tokens = SuperToken.where(user_id: params[:id])
-        render json: tokens
+        if @user.is_admin
+            ip_array = SuperToken.where(user_id: params[:id]).pluck(:client_ip).uniq
+            ip_array.map { |ip| BannedIp.create(client_ip: ip) }
+            render json: {message:"Banned all ips listed below",ips: ip_array}
+        else
+            render json: {error: "403 FORBIDDEN NOT ADMIN"}, status:  403
+        end
     end
-    private
+    def testing
+        render json: {agent:request.user_agent,ip:request.remote_ip}
+    end
 end

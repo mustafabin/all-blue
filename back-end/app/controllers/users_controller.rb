@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  skip_before_action :authorize, only: %i[ show index ]
+  skip_before_action :authorize, only: %i[ show index login create]
 
   # GET /users
   def index
@@ -11,11 +11,6 @@ class UsersController < ApplicationController
   # GET /users/1
   def show
     render json: User.find(params[:id])
-  end
-  def testing
-    # puts request.headers.first(10).to_h.keys
-
-    render json: {agent:request.user_agent,ip:request.remote_ip}
   end
 
   # POST /users
@@ -58,11 +53,6 @@ class UsersController < ApplicationController
     end
 
   def profile 
-    # find user based of super token
-    # is_vaild = vaildate_super request.headers['token']
-    # if is_vaild[:user]
-    #   render json: is_vaild
-    # end
     render json: @user
   end
 
