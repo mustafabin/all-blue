@@ -51,14 +51,14 @@ class UsersController < ApplicationController
   end
 
   def login 
-    user = User.find_by(email:params[:email]).try(:authenticate, params[:password])
+    user = User.find_by!(email:params[:email]).try(:authenticate, params[:password])
     if user
         hash = BCrypt::Password.create(user.id)
         # create a super token that points to user
         super_token = SuperToken.create!(agent: request.user_agent,token:hash,user_id:user.id,client_ip: request.remote_ip)
         render json: {token: super_token.token}
     else
-        render json: {message:"401 not authorized"}, status: 401
+        render json: {message:"Incorrect Password"}, status: 401
       end
     end
 
