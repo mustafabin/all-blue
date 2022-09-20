@@ -37,7 +37,6 @@ gem "bootsnap", require: false
 gem "rack-cors"
 
 gem "faker"
-gem "jwt"
 gem "time"
 
 group :development, :test do

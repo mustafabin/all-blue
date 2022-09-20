@@ -14,9 +14,8 @@ class UsersController < ApplicationController
   end
   def testing
     # puts request.headers.first(10).to_h.keys
-    puts request.user_agent
 
-    render json: {message:request.user_agent}
+    render json: {agent:request.user_agent,ip:request.remote_ip}
   end
 
   # POST /users
@@ -49,9 +48,8 @@ class UsersController < ApplicationController
     if user
         hash = BCrypt::Password.create(user.id)
         # check if a supertoken for that user exist already 
-        # THIS IS WHERE YOU COULD LIMIT IT TO X AMOUNT OF TOKENS
         old_token = SuperToken.find_by(user_id: user.id)
-        if not old_token
+        if !old_token
           # create a super token that points to user
           super_token = SuperToken.create!(agent: request.user_agent,token:hash,user_id:user.id,client_ip: request.remote_ip)
           render json: {token: super_token.token}
