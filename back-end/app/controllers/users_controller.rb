@@ -36,8 +36,18 @@ class UsersController < ApplicationController
 
   # DELETE /users/1
   def destroy
-    user = User.find(params[:id])
-    user.destroy
+    if @user.is_admin
+      user = User.find(params[:id])
+      user.destroy
+      render json: user
+    else
+      render json: {error: "403 FORBIDDEN NOT ADMIN"}, status:  403
+    end
+  end
+
+  def destroy_self
+    @user.destroy
+    render json: @user
   end
 
   def login 
