@@ -12,16 +12,16 @@ class UsersController < ApplicationController
   def show
     render json: User.find(params[:id])
   end
+  # GET /users/1
+  def signout
+    token = SuperToken.find_by(token:request.headers['token']).destroy
+    render json: token
+  end
 
-  # POST /users
+  # POST /users 
   def create
-    user = User.new(user_params)
-
-    if user.save
-      render json: user, status: :created, location: user
-    else
-      render json: user.errors, status: :unprocessable_entity
-    end
+    user = User.create!(username: params[:username], email: params[:email], tag: params[:tag],password: params[:password],is_admin: false)
+    render json: user
   end
 
   # PATCH/PUT /users/1
@@ -57,8 +57,4 @@ class UsersController < ApplicationController
   end
 
   private
-    # Only allow a list of trusted parameters through.
-    def user_params
-      params.require(:user).permit(:username, :tag, :password_digest, :email)
-    end
 end

@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::API
-    rescue_from ActiveRecord::RecordNotFound, with: :throw_error
+    rescue_from ActiveRecord::RecordNotFound, with: :invaild_req
+    rescue_from ActiveRecord::RecordInvalid, with: :invaild_req
     before_action :authorize 
 
     def expiry_time days
@@ -34,8 +35,8 @@ class ApplicationController < ActionController::API
     end
 
     private
-    def throw_error(invaild)
-        render json: {error: invaild}, status: 404
+    def invaild_req(invaild)
+        render json: {error: invaild}, status: 400
     end
     def authorize
         @user = vaildate_super(request.headers['token'])
