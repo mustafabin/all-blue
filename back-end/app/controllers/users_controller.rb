@@ -58,12 +58,29 @@ class UsersController < ApplicationController
         super_token = SuperToken.create!(agent: request.user_agent,token:hash,user_id:user.id,client_ip: request.remote_ip)
         render json: {token: super_token.token}
     else
-        render json: {message:"Incorrect Password"}, status: 401
+        render json: {error: "401 UNAUTHORIZED", message:"Incorrect Password"}, status: 401
       end
     end
 
   def profile 
     render json: @user
+  end
+  
+  def update_password
+    is_vaild_password =  @user.try(:authenticate, params[:old_password])
+    if is_vaild_password
+      # when user updates password invaildate all tokens under there name 
+      # essentially logging them out of all there devices  
+      SuperToken.where(user_id: @user.id).destroy_all
+      @user.update(password:params[:new_password])
+      # mint a new token  
+      hash = BCrypt::Password.create(@user.id)
+      new_super_token = SuperToken.create!(agent: request.user_agent,token:hash,user_id:@user.id,client_ip: request.remote_ip)
+      
+      render json:{user: @user, token: new_super_token.token}
+    else
+      render json: {error: "401 UNAUTHORIZED", message:"Incorrect Password"}, status: 401
+    end
   end
 
   private

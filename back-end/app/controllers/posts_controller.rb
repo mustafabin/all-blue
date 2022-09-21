@@ -2,12 +2,12 @@ class PostsController < ApplicationController
     skip_before_action :authorize, only: %i[ show index ]
 
     def create
-        new_post = Post.create!(content: params[:content], user_id: @user.id)
+        new_post = Post.create!(content: params[:content], user_id: @user.id, edited: false)
         render json: new_post
     end
     def index
         posts = Post.all
-        render json: posts, status: 404
+        render json: posts
     end
     def show 
         post = Post.find(params[:id])
