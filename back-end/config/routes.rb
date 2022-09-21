@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   get "/", to: "banned_ips#testing"
+  get "/my_posts", to: "posts#my_posts"
   get "/profile", to: "users#profile"
   delete "/destroy_self", to: "users#destroy_self"
   get "/signout", to: "users#signout"
