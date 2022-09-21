@@ -12,7 +12,7 @@ class PostsController < ApplicationController
     def show 
         post = Post.find(params[:id])
         if post 
-            render json: {post: post, comments:post.comments}, status: 404
+            render json: post, serializer: CommentPostSerializer
         else
             render json: {error: "404 NOT FOUND"}, status: 404
         end

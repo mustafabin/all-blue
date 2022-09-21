@@ -1,6 +1,6 @@
 class PostSerializer < ActiveModel::Serializer
   attributes :id, :content, :user
   def user
-    {name: object.user.username, tag:object.user.tag}
+    {name: object.user.username, tag:object.user.tag, id:object.user.id}
   end
 end
