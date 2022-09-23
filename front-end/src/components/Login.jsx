@@ -6,14 +6,34 @@ import IconButton from "@mui/material/IconButton";
 import FilledInput from "@mui/material/FilledInput";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
+import Button from "@mui/material/Button";
+import VpnKeyRoundedIcon from "@mui/icons-material/VpnKeyRounded";
 import { useState } from "react";
+import { fontFamily } from "@mui/system";
 
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
   let handleSubmit = (e) => {
     e.preventDefault();
   };
-
+  let buttonStyle = {
+    border: "none",
+    backgroundColor: "var(--accent-one-color)",
+    color: "whitesmoke",
+    transition: "all ease 0.25s",
+    padding: "1rem",
+    fontSize: "1.3rem",
+    fontWeight: "bold",
+    letterSpacing: "1px",
+    display: "flex",
+    gap: "1rem",
+    textTransform: "none",
+    "&:hover": {
+      border: "none",
+      color: "white",
+      backgroundColor: "var(--accent-one-dark-color)",
+    },
+  };
   return (
     <>
       <form onSubmit={handleSubmit}>
@@ -23,10 +43,12 @@ function Login() {
           placeholder="email / username"
           className="Landing-login-input"
           variant="filled"
+          fullWidth
         />
         <FormControl className="Landing-login-input" variant="filled">
           <InputLabel htmlFor="filled-adornment-password">Password</InputLabel>
           <FilledInput
+            fullWidth
             id="filled-adornment-password"
             autoComplete="password"
             type={showPassword ? "text" : "password"}
@@ -48,6 +70,11 @@ function Login() {
             }
           />
         </FormControl>
+        <Button sx={buttonStyle} variant="outlined">
+          Login
+          <VpnKeyRoundedIcon fontSize="large" />
+        </Button>
+        <p className="Landing-signup-text">Sign Up ?</p>
       </form>
     </>
   );
