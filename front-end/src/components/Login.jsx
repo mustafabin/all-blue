@@ -9,46 +9,30 @@ import FormControl from "@mui/material/FormControl";
 import Button from "@mui/material/Button";
 import VpnKeyRoundedIcon from "@mui/icons-material/VpnKeyRounded";
 import { useState } from "react";
-import { fontFamily } from "@mui/system";
 
-function Login() {
+function Login({ setShowSignup, buttonStyle }) {
   const [showPassword, setShowPassword] = useState(false);
   let handleSubmit = (e) => {
     e.preventDefault();
+    alert("submit");
   };
-  let buttonStyle = {
-    border: "none",
-    backgroundColor: "var(--accent-one-color)",
-    color: "whitesmoke",
-    transition: "all ease 0.25s",
-    padding: "1rem",
-    fontSize: "1.3rem",
-    fontWeight: "bold",
-    letterSpacing: "1px",
-    display: "flex",
-    gap: "1rem",
-    textTransform: "none",
-    "&:hover": {
-      border: "none",
-      color: "white",
-      backgroundColor: "var(--accent-one-dark-color)",
-    },
-  };
+
   return (
     <>
       <form onSubmit={handleSubmit}>
         <TextField
           autoComplete="email"
           label="Email"
-          placeholder="email / username"
+          placeholder="Email / Username"
           className="Landing-login-input"
           variant="filled"
           fullWidth
+          required
         />
-        <FormControl className="Landing-login-input" variant="filled">
+        <FormControl fullWidth className="Landing-login-input" variant="filled">
           <InputLabel htmlFor="filled-adornment-password">Password</InputLabel>
           <FilledInput
-            fullWidth
+            required
             id="filled-adornment-password"
             autoComplete="password"
             type={showPassword ? "text" : "password"}
@@ -70,11 +54,19 @@ function Login() {
             }
           />
         </FormControl>
-        <Button sx={buttonStyle} variant="outlined">
+        <Button type="submit" sx={buttonStyle} variant="outlined">
           Login
           <VpnKeyRoundedIcon fontSize="large" />
         </Button>
-        <p className="Landing-signup-text">Sign Up ?</p>
+        <div className="Landing-switch">
+          <span>Dont have a account ? </span>
+          <p
+            onClick={() => setShowSignup(true)}
+            className="Landing-signup-text"
+          >
+            Sign Up
+          </p>
+        </div>
       </form>
     </>
   );

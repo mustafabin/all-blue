@@ -11,8 +11,22 @@
       backdrop-filter: invert(100%);
     }
   }
+  &-switch {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    & span {
+      font-style: italic;
+    }
+  }
   &-signup-text {
-    align-self: flex-end;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none;
     padding: 0.5rem;
     background: linear-gradient(
       180deg,
@@ -69,13 +83,7 @@
       font-family: "Roboto", "Helvetica", "Arial", sans-serif;
       & h1 {
         padding-bottom: 0.5rem;
-        background: linear-gradient(
-          180deg,
-          transparent 60%,
-          var(--dark-main-color) 60%,
-          var(--dark-main-color) 75%,
-          transparent 75%
-        );
+        text-shadow: 0px 0px 2px black;
       }
       & img {
         width: 30vw;
@@ -83,4 +91,20 @@
       }
     }
   }
+}
+
+@media (min-width: 1200px) {
+  .Landing {
+    display: flex;
+    justify-content: flex-end;
+    &-login {
+      background-color: rgba(0, 0, 0, 0.4);
+      width: 40vw;
+      max-width: 500px;
+      backdrop-filter: blur(10px);
+    }
+  }
+}
+* {
+  // border: 1px solid red;
 }
