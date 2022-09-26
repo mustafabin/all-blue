@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::API
-    rescue_from ActiveRecord::RecordNotFound, with: :invaild_req
-    rescue_from ActiveRecord::RecordInvalid, with: :invaild_req
+    rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
+    rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
+
     before_action :authorize 
 
     def expiry_time days
@@ -35,8 +36,12 @@ class ApplicationController < ActionController::API
     end
 
     private
-    def invaild_req(invaild)
-        render json: {error: invaild}, status: 400
+    def render_not_found_response(exception)
+        render json: { error: "#{exception.model} not found" }, status: :not_found
+    end
+
+    def render_unprocessable_entity_response(exception)
+        render json: { errors: exception.record.errors.full_messages }, status: :unprocessable_entity
     end
     def authorize
         @user = vaildate_super(request.headers['token'])

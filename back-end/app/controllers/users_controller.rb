@@ -51,7 +51,9 @@ class UsersController < ApplicationController
   end
 
   def login 
-    user = User.find_by!(email:params[:email]).try(:authenticate, params[:password])
+    user_found = User.find_by(email:params[:email]) || User.find_by!(username:params[:email])
+
+    user = user_found.try(:authenticate, params[:password])
     if user
         hash = BCrypt::Password.create(user.id)
         # create a super token that points to user
