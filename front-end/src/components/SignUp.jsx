@@ -8,6 +8,7 @@ import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import Button from "@mui/material/Button";
 import AnchorRoundedIcon from "@mui/icons-material/AnchorRounded";
+import { testing } from "../services/api";
 import { useState } from "react";
 
 function SignUp({ setShowSignup, buttonStyle }) {
@@ -29,7 +30,7 @@ function SignUp({ setShowSignup, buttonStyle }) {
     }
     // if any form has an error dont submit
     if (!(error.email.value || error.tag.value || error.username.value)) {
-      alert("valid");
+      testing();
     }
   };
   let handleChange = (e) => {
@@ -66,7 +67,6 @@ function SignUp({ setShowSignup, buttonStyle }) {
       ...error,
       [errorName]: tempError,
     });
-    console.log(error);
   };
   return (
     <>
