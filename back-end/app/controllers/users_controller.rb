@@ -21,7 +21,12 @@ class UsersController < ApplicationController
   # POST /users 
   def create
     user = User.create!(username: params[:username], email: params[:email], tag: params[:tag],password: params[:password],is_admin: false)
-    render json: user
+    if user
+      hash = BCrypt::Password.create(user.id)
+      # create a super token that points to user
+      super_token = SuperToken.create!(agent: request.user_agent,token:hash,user_id:user.id,client_ip: request.remote_ip)
+      render json: user, serializer: UserTokenSerializer
+    end
   end
 
   # PATCH/PUT /users/1
@@ -58,7 +63,7 @@ class UsersController < ApplicationController
         hash = BCrypt::Password.create(user.id)
         # create a super token that points to user
         super_token = SuperToken.create!(agent: request.user_agent,token:hash,user_id:user.id,client_ip: request.remote_ip)
-        render json: {token: super_token.token}
+        render json: user, serializer: UserTokenSerializer
     else
         render json: {error: "401 UNAUTHORIZED", message:"Incorrect Password"}, status: 401
       end
