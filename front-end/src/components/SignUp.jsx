@@ -8,14 +8,20 @@ import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import Button from "@mui/material/Button";
 import AnchorRoundedIcon from "@mui/icons-material/AnchorRounded";
-import { testing } from "../services/api";
+import Swal from "sweetalert2";
 import { useState } from "react";
-
+import { signUp } from "../services/api";
+import { useDispatch } from "react-redux";
+import { setUser } from "../state/user.js";
+import { useNavigate } from "react-router-dom";
 function SignUp({ setShowSignup, buttonStyle }) {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [showPassword, setShowPassword] = useState(false);
   const [form, setForm] = useState({});
   const [error, setError] = useState({});
-  let handleSubmit = (e) => {
+  let handleSubmit = async (e) => {
     e.preventDefault();
     console.log(form);
     // validate passwords
@@ -30,7 +36,15 @@ function SignUp({ setShowSignup, buttonStyle }) {
     }
     // if any form has an error dont submit
     if (!(error.email.value || error.tag.value || error.username.value)) {
-      testing();
+      let data = await signUp(form);
+      console.log(data);
+      if (data["errors"]) {
+        Swal.fire(data["errors"][0], data["errors"][1], "error");
+      } else {
+        dispatch(setUser(data.user));
+        localStorage.setItem("superToken", data.token);
+        navigate("/home");
+      }
     }
   };
   let handleChange = (e) => {

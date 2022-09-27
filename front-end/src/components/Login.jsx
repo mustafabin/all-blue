@@ -9,12 +9,31 @@ import FormControl from "@mui/material/FormControl";
 import Button from "@mui/material/Button";
 import VpnKeyRoundedIcon from "@mui/icons-material/VpnKeyRounded";
 import { useState } from "react";
+import { login } from "../services/api";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setUser } from "../state/user.js";
+import Swal from "sweetalert2";
 
 function Login({ setShowSignup, buttonStyle }) {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
-  let handleSubmit = (e) => {
+  let handleSubmit = async (e) => {
     e.preventDefault();
-    alert("submit");
+    let form = {
+      email: e.target["email"].value,
+      password: e.target["password"].value,
+    };
+
+    let data = await login(form);
+    if (data["error"]) {
+      Swal.fire(data["error"], data["message"], "error");
+    } else {
+      localStorage.setItem("superToken", data["token"]);
+      dispatch(setUser(data.user));
+      navigate("/home");
+    }
   };
 
   return (
@@ -23,6 +42,7 @@ function Login({ setShowSignup, buttonStyle }) {
         <TextField
           autoComplete="email"
           label="Email"
+          name="email"
           placeholder="Email / Username"
           className="Landing-login-input"
           variant="filled"
@@ -33,6 +53,7 @@ function Login({ setShowSignup, buttonStyle }) {
           <InputLabel htmlFor="filled-adornment-password">Password</InputLabel>
           <FilledInput
             required
+            name="password"
             id="filled-adornment-password"
             autoComplete="password"
             type={showPassword ? "text" : "password"}

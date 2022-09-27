@@ -7,8 +7,8 @@
     z-index: -1;
     & img {
       height: 100vh;
+      min-height: 100vh;
       transform: rotateY(180deg);
-      backdrop-filter: invert(100%);
     }
   }
   &-switch {

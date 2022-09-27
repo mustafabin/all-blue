@@ -4,8 +4,11 @@ import Login from "../components/Login.jsx";
 import lowRes from "../media/BACKGROUND-min.jpg";
 import { useState } from "react";
 import SignUp from "../components/SignUp";
+import { useSelector } from "react-redux";
+import LandingBtns from "../components/LandingBtns";
 function Landing() {
   const [showSignup, setShowSignup] = useState(false);
+  const user = useSelector((state) => state.user);
   let buttonStyle = {
     border: "none",
     backgroundColor: "var(--accent-one-color)",
@@ -35,7 +38,9 @@ function Landing() {
             <img src={logo} alt="Skull with strawhat" />
             <h1>All Blue</h1>
           </div>
-          {showSignup ? (
+          {user.isAuthenticated ? (
+            <LandingBtns buttonStyle={buttonStyle} />
+          ) : showSignup ? (
             <SignUp buttonStyle={buttonStyle} setShowSignup={setShowSignup} />
           ) : (
             <Login buttonStyle={buttonStyle} setShowSignup={setShowSignup} />
