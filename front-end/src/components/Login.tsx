@@ -14,12 +14,15 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setUser } from "../state/user.js";
 import Swal from "sweetalert2";
-
-function Login({ setShowSignup, buttonStyle }) {
+interface LoginProps {
+  setShowSignup: any;
+  buttonStyle: any;
+}
+function Login({ setShowSignup, buttonStyle }: LoginProps) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
-  let handleSubmit = async (e) => {
+  let handleSubmit = async (e: any) => {
     e.preventDefault();
     let form = {
       email: e.target["email"].value,

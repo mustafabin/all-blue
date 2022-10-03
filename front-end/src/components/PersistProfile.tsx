@@ -3,9 +3,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { setUser, clearUser } from "../state/user";
 import { profile } from "../services/api";
 function PersistProfile() {
-  const user = useSelector((state) => state.user);
+  const user = useSelector((state: any) => state.user);
   const dispatch = useDispatch();
-  let grabProfile = async (token) => {
+  let grabProfile = async (token: string) => {
     let data = await profile(token);
     if (data["error"]) {
       dispatch(clearUser());

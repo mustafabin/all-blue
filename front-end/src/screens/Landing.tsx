@@ -8,8 +8,8 @@ import { useSelector } from "react-redux";
 import LandingBtns from "../components/LandingBtns";
 function Landing() {
   const [showSignup, setShowSignup] = useState(false);
-  const user = useSelector((state) => state.user);
-  let buttonStyle = {
+  const user = useSelector((state: any) => state.user);
+  let buttonStyle: any = {
     border: "none",
     backgroundColor: "var(--accent-one-color)",
     color: "whitesmoke",

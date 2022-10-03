@@ -4,7 +4,10 @@ import AirRoundedIcon from "@mui/icons-material/AirRounded";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { clearUser } from "../state/user";
-function LandingBtns({ buttonStyle }) {
+interface LandingBtnsProps {
+  buttonStyle: any;
+}
+function LandingBtns({ buttonStyle }: LandingBtnsProps) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   let signOutStyle = {

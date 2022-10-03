@@ -14,14 +14,30 @@ import { signUp } from "../services/api";
 import { useDispatch } from "react-redux";
 import { setUser } from "../state/user.js";
 import { useNavigate } from "react-router-dom";
-function SignUp({ setShowSignup, buttonStyle }) {
+interface SignUpProps {
+  setShowSignup: any;
+  buttonStyle: any;
+}
+function SignUp({ setShowSignup, buttonStyle }: SignUpProps) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [showPassword, setShowPassword] = useState(false);
-  const [form, setForm] = useState({});
-  const [error, setError] = useState({});
-  let handleSubmit = async (e) => {
+  const [form, setForm] = useState({
+    email: "",
+    tag: "",
+    confirm: "",
+    password: "",
+    username: "",
+  });
+  const [error, setError] = useState({
+    email: { value: false, message: "" },
+    tag: { value: false, message: "" },
+    confirm: { value: false, message: "" },
+    password: { value: false, message: "" },
+    username: { value: false, message: "" },
+  });
+  let handleSubmit = async (e: any) => {
     e.preventDefault();
     console.log(form);
     // validate passwords
@@ -47,17 +63,17 @@ function SignUp({ setShowSignup, buttonStyle }) {
       }
     }
   };
-  let handleChange = (e) => {
+  let handleChange = (e: any) => {
     handleError(e);
     setForm({
       ...form,
       [e.target.name]: e.target.value,
     });
   };
-  let onlySpaces = (string) => {
+  let onlySpaces = (string: string) => {
     return /^\s*$/.test(string);
   };
-  let handleError = (e) => {
+  let handleError = (e: any) => {
     let tempError = {
       message: "",
       value: false,
@@ -141,7 +157,6 @@ function SignUp({ setShowSignup, buttonStyle }) {
           <FilledInput
             required
             name="password"
-            helperText={error.password ? error.password.message : false}
             error={error.password ? error.password.value : false}
             value={form.password || ""}
             onChange={handleChange}
