@@ -6,6 +6,7 @@ import IconButton from "@mui/material/IconButton";
 import FilledInput from "@mui/material/FilledInput";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
+import CircularProgress from "@mui/material/CircularProgress";
 import Button from "@mui/material/Button";
 import VpnKeyRoundedIcon from "@mui/icons-material/VpnKeyRounded";
 import { useState } from "react";
@@ -22,14 +23,16 @@ const Login = ({ setShowSignup, buttonStyle }: LoginProps) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   let handleSubmit = async (e: any) => {
     e.preventDefault();
     let form = {
       email: e.target["email"].value,
       password: e.target["password"].value,
     };
-
+    setIsLoading(true);
     let data = await login(form);
+    setIsLoading(false);
     if (data["error"]) {
       Swal.fire(data["error"], data["message"], "error");
     } else {
@@ -78,10 +81,14 @@ const Login = ({ setShowSignup, buttonStyle }: LoginProps) => {
             }
           />
         </FormControl>
-        <Button type="submit" sx={buttonStyle} variant="outlined">
-          Login
-          <VpnKeyRoundedIcon fontSize="large" />
-        </Button>
+        {isLoading ? (
+          <CircularProgress size={60} sx={{ color: "darkorange" }} />
+        ) : (
+          <Button type="submit" sx={buttonStyle} variant="outlined">
+            Login
+            <VpnKeyRoundedIcon fontSize="large" />
+          </Button>
+        )}
         <div className="Landing-switch">
           <span>Dont have a account ? </span>
           <p

@@ -79,14 +79,6 @@ const SignUp = ({ setShowSignup, buttonStyle }: SignUpProps) => {
       value: false,
     };
     let errorName = e.target.name;
-    if (errorName === "confirm" || errorName === "password")
-      return setError({
-        ...error,
-        password: {
-          value: false,
-          message: "",
-        },
-      });
     // if the text is blank
     if (onlySpaces(e.target.value)) {
       tempError.message = "Cant be blank";
@@ -148,11 +140,7 @@ const SignUp = ({ setShowSignup, buttonStyle }: SignUpProps) => {
             error={error.password ? error.password.value : false}
             htmlFor="filled-adornment-password"
           >
-            {error.password
-              ? error.password.message
-                ? error.password.message
-                : "Password must match"
-              : "Password"}
+            {error.password.message || "Password"}
           </InputLabel>
           <FilledInput
             required
@@ -186,11 +174,7 @@ const SignUp = ({ setShowSignup, buttonStyle }: SignUpProps) => {
             error={error.password ? error.password.value : false}
             htmlFor="filled-adornment-confirm-password"
           >
-            {error.password
-              ? error.password.message
-                ? error.password.message
-                : "Password must match"
-              : "Confirm Password"}
+            {error.password.message || "Confirm Password"}
           </InputLabel>
           <FilledInput
             required
