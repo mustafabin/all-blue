@@ -8,6 +8,7 @@ import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import Button from "@mui/material/Button";
 import AnchorRoundedIcon from "@mui/icons-material/AnchorRounded";
+import CircularProgress from "@mui/material/CircularProgress";
 import Swal from "sweetalert2";
 import { useState } from "react";
 import { signUp } from "../services/api";
@@ -23,6 +24,7 @@ const SignUp = ({ setShowSignup, buttonStyle }: SignUpProps) => {
   const navigate = useNavigate();
 
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [form, setForm] = useState({
     email: "",
     tag: "",
@@ -52,8 +54,10 @@ const SignUp = ({ setShowSignup, buttonStyle }: SignUpProps) => {
     }
     // if any form has an error dont submit
     if (!(error.email.value || error.tag.value || error.username.value)) {
+      setIsLoading(true);
       let data = await signUp(form);
-      console.log(data);
+      setIsLoading(false);
+
       if (data["errors"]) {
         Swal.fire(data["errors"][0], data["errors"][1], "error");
       } else {
@@ -203,11 +207,14 @@ const SignUp = ({ setShowSignup, buttonStyle }: SignUpProps) => {
             }
           />
         </FormControl>
-
-        <Button type="submit" sx={buttonStyle} variant="outlined">
-          Sign Up
-          <AnchorRoundedIcon fontSize="large" />
-        </Button>
+        {isLoading ? (
+          <CircularProgress size={60} sx={{ color: "darkorange" }} />
+        ) : (
+          <Button type="submit" sx={buttonStyle} variant="outlined">
+            Sign Up
+            <AnchorRoundedIcon fontSize="large" />
+          </Button>
+        )}
         <div className="Landing-switch">
           <span>Already have a account ? </span>
           <p
