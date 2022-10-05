@@ -1,6 +1,6 @@
 import "../styles/Home.scss";
 import { useSelector } from "react-redux";
-function Home() {
+const Home = () => {
   const user = useSelector((state: any) => state.user);
   return (
     <>
@@ -13,5 +13,5 @@ function Home() {
       </div>
     </>
   );
-}
+};
 export default Home;

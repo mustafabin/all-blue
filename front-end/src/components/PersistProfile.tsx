@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setUser, clearUser } from "../state/user";
 import { profile } from "../services/api";
-function PersistProfile() {
+const PersistProfile = () => {
   const user = useSelector((state: any) => state.user);
   const dispatch = useDispatch();
   let grabProfile = async (token: string) => {
@@ -21,5 +21,5 @@ function PersistProfile() {
     }
   }, []);
   return <></>;
-}
+};
 export default PersistProfile;

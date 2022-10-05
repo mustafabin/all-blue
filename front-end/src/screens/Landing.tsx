@@ -6,7 +6,7 @@ import { useState } from "react";
 import SignUp from "../components/SignUp";
 import { useSelector } from "react-redux";
 import LandingBtns from "../components/LandingBtns";
-function Landing() {
+const Landing = () => {
   const [showSignup, setShowSignup] = useState(false);
   const user = useSelector((state: any) => state.user);
   let buttonStyle: any = {
@@ -49,5 +49,5 @@ function Landing() {
       </div>
     </>
   );
-}
+};
 export default Landing;

@@ -18,7 +18,7 @@ interface LoginProps {
   setShowSignup: any;
   buttonStyle: any;
 }
-function Login({ setShowSignup, buttonStyle }: LoginProps) {
+const Login = ({ setShowSignup, buttonStyle }: LoginProps) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
@@ -94,5 +94,5 @@ function Login({ setShowSignup, buttonStyle }: LoginProps) {
       </form>
     </>
   );
-}
+};
 export default Login;

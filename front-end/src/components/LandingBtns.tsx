@@ -7,7 +7,7 @@ import { clearUser } from "../state/user";
 interface LandingBtnsProps {
   buttonStyle: any;
 }
-function LandingBtns({ buttonStyle }: LandingBtnsProps) {
+const LandingBtns = ({ buttonStyle }: LandingBtnsProps) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   let signOutStyle = {
@@ -40,5 +40,5 @@ function LandingBtns({ buttonStyle }: LandingBtnsProps) {
       </Button>
     </>
   );
-}
+};
 export default LandingBtns;

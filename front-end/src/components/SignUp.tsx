@@ -18,7 +18,7 @@ interface SignUpProps {
   setShowSignup: any;
   buttonStyle: any;
 }
-function SignUp({ setShowSignup, buttonStyle }: SignUpProps) {
+const SignUp = ({ setShowSignup, buttonStyle }: SignUpProps) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -236,5 +236,5 @@ function SignUp({ setShowSignup, buttonStyle }: SignUpProps) {
       </form>
     </>
   );
-}
+};
 export default SignUp;

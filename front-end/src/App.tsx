@@ -2,7 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import Landing from "./screens/Landing.jsx";
 import Home from "./screens/Home.jsx";
 import PersistProfile from "./components/PersistProfile.jsx";
-function App() {
+const App = () => {
   return (
     <>
       <PersistProfile />
@@ -13,5 +13,5 @@ function App() {
       </Routes>
     </>
   );
-}
+};
 export default App;
