@@ -39,6 +39,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_21_140319) do
   create_table "super_tokens", force: :cascade do |t|
     t.string "agent"
     t.string "token"
+    t.datetime "expiry"
     t.integer "user_id"
     t.string "client_ip"
     t.datetime "created_at", null: false
