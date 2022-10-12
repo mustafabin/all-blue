@@ -36,7 +36,7 @@ const Login = ({ setShowSignup, buttonStyle }: LoginProps) => {
     if (data["error"]) {
       Swal.fire(data["error"], data["message"], "error");
     } else {
-      localStorage.setItem("superToken", data["token"]);
+      localStorage.setItem("SuperToken", data["token"]);
       dispatch(setUser(data.user));
       navigate("/home");
     }

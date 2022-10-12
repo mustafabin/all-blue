@@ -34,7 +34,7 @@ export const profile = async (token: string) => {
   let response = await fetch(`${apiUrl}/profile`, {
     headers: {
       "Content-Type": "application/json",
-      token: token,
+      SuperToken: token,
     },
   });
   return await response.json();

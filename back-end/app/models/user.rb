@@ -7,7 +7,7 @@ class User < ApplicationRecord
     has_many :posts
     has_many :comments, through: :posts
     def profile 
-        {id:self.id,tag:self.tag,email:self.email,created_at:self.created_at,updated_at:self.updated_at,is_admin: self.is_admin}
+        {id:self.id,tag:self.tag,username: self.username,email:self.email,created_at:self.created_at,updated_at:self.updated_at,is_admin: self.is_admin}
 
     end
 end

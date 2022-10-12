@@ -14,7 +14,7 @@ const PersistProfile = () => {
     }
   };
   useEffect(() => {
-    let token = localStorage.getItem("superToken");
+    let token = localStorage.getItem("SuperToken");
     // if a super token exists and user is logged out
     if (token && !user.isAuthenticated) {
       grabProfile(token);

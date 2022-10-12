@@ -62,7 +62,7 @@ const SignUp = ({ setShowSignup, buttonStyle }: SignUpProps) => {
         Swal.fire(data["errors"][0], data["errors"][1], "error");
       } else {
         dispatch(setUser(data.user));
-        localStorage.setItem("superToken", data.token);
+        localStorage.setItem("SuperToken", data.token);
         navigate("/home");
       }
     }
