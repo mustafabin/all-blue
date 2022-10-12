@@ -34,7 +34,7 @@ class SuperToken < ApplicationRecord
     def self.vaildate_super request
         token = request.headers["SuperToken"] 
         if !token
-            raise "super token header wrong" # improve this to be a custom error not a <RuntimeError: >
+            return {status: "bad", error:"SuperToken Header Found", message:"header needs to called SuperToken not token or authentication"}
         end
         super_token = SuperToken.find_by(token:token)
         if !super_token
