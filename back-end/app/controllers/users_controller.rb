@@ -55,7 +55,8 @@ class UsersController < ApplicationController
   end
 
   def login 
-    user_found = User.find_by(email:params[:email]) || User.find_by!(username:params[:email])
+    usernameParam =  params[:username]
+    user_found = User.find_by(email:params[:email]) || User.where('lower(username) = ?',usernameParam.downcase).first 
 
     user = user_found.try(:authenticate, params[:password])
     if user
