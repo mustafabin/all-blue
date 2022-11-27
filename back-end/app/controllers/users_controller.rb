@@ -55,15 +55,14 @@ class UsersController < ApplicationController
   end
 
   def login 
-    usernameParam =  params[:username]
+    usernameParam =  params[:username] || ""
     user_found = User.find_by(email:params[:email]) || User.where('lower(username) = ?',usernameParam.downcase).first 
-
     user = user_found.try(:authenticate, params[:password])
     if user
         token = SuperToken.generate_token(user, request)
         render json: user, serializer: UserTokenSerializer
     else
-        render json: {error: "401 UNAUTHORIZED", message:"Incorrect Password"}, status: 401
+        render json: {error: "401 UNAUTHORIZED", message:"Incorrect Email or Password"}, status: 401
       end
     end
 

@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;900&display=swap');
 :root {
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -12,9 +13,6 @@
 }
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: black;
@@ -25,5 +23,6 @@ code {
     monospace;
 }
 * {
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-family: 'Rubik', sans-serif;
+  font-weight: 500;
 }
