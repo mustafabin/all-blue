@@ -1,18 +1,58 @@
 .Home {
-	background-color: black;
-	min-height: 100vh;
+	background-color: rgb(19, 18, 19);
+	height: 100vh;
 	width: 100vw;
-
-	color: white;
+	color: rgb(254, 254, 254);
 	display: flex;
 	&-sidenav {
-		width: 20vw;
+		width: 18vw;
+		font-size: 1rem;
+		&-items {
+			min-height: 50%;
+			display: flex;
+			justify-content: center;
+			gap: 1rem;
+			flex-direction: column;
+			padding-left: 1.5rem;
+			& span{
+				display: flex;
+				padding: 0rem 0.5rem 0rem 0.5rem;
+				border-radius: 10px;
+				transition: all ease 0.25s;
+				width: fit-content;
+				align-items: center;
+				justify-content: center;
+				gap: 0.5rem;
+				font-size: 1rem;
+				&:hover {
+					cursor: pointer;
+					color: var(--accent-one-color);
+					background-color: rgba(255, 166, 0, 0.302);
+					box-shadow:  0 1px 2px 0 rgba(255, 166, 0, 0.2), 0 2px 6px 2px rgba(255, 166, 0, 0.2);
+
+				}
+			}
+			&-posbtn-container{
+				margin-top: 5vh;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+		}
 		&-user {
 			display: flex;
 			align-items: center;
-      width: 95%;
-      justify-content: space-between;
-      padding-top: 2rem;
+			width: 95%;
+			justify-content: space-between;
+			padding-top: 2rem;
+			&-morebtn{
+				transition: color ease 0.25s;
+				&:hover{
+					cursor: pointer;
+					color: var(--accent-one-color);
+					filter: drop-shadow(0px 0px 0.5rem var(--accent-one-color));
+				}
+			}
 			&-title {
 				& h1 {
 					margin: 0px 0px 0.5rem 0px;
@@ -31,28 +71,62 @@
 	}
 	&-content {
 		width: 60vw;
-	
+		border: 1px solid red;
+		max-height: 100vh;
+		overflow: scroll;
 	}
 	&-explore {
 		width: 20vw;
-	
 	}
 }
 
-@media (max-width: 1300px) {
-  .Home{
-    &-sidenav{
-      &-user{
-        width: 100%;
-        flex-direction: column;
-        text-align: center;
-      }
-    }
-  }
-} 
+@media (max-width: 1350px) {
+	.Home {
+		&-sidenav {
+			&-user {
+				width: 100%;
+				flex-direction: column;
+				gap: 1rem;
+				text-align: center;
+				margin-bottom: 1rem;
+			}
+			&-items {
+				padding-left: 1rem;
+				& span{
+					font-size: 0.8rem;
+				}
+			}
+		}
+	}
+}
 
-@media (max-width: 800px) {
-  *{
-    border: 1px solid red;
-  }
+
+@media (max-width:1115px) {
+	.Home {
+		&-sidenav {
+			&-items {
+				&-posbtn{
+					max-width: 60%;
+				}
+				align-items: center;
+				gap: 3rem;
+				padding-left: 0px;
+			}
+			& svg{
+				font-size: 3rem;
+			}
+			& h1,p{
+				display: none;
+			}
+		}
+		&-explore{
+			display: none;
+		}
+		&-content {
+			width: 80vw;
+		}
+	}
+}
+*{
+	// border: 1px solid red;
 }
