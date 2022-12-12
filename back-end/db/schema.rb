@@ -33,7 +33,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_21_140319) do
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "edited"
+    t.boolean "edited", default: false
   end
 
   create_table "super_tokens", force: :cascade do |t|

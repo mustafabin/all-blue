@@ -18,5 +18,7 @@ User.create!(username: "mustafa", email: "mustafa@bounty.com", password: "123", 
     new_comment = Comment.create!(content: Faker::JapaneseMedia::OnePiece.quote, user_id: new_user.id, post_id: new_post.id)
 end
 # TrustedIp.create!(client_ip: "127.0.0.1",user_id: User.all.sample.id)
+puts "created posts"
+puts "created comments"
 
 puts "seeded successfully 👒🏴‍☠️"
