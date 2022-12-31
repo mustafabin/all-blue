@@ -13,7 +13,9 @@ User.create!(username: "mustafa", email: "mustafa@bounty.com", password: "123", 
         name = name + same_name.id.to_s
         puts "changing it to #{name}"
     end
-    new_user = User.create!(username: name, email: "#{name.delete(' ')}@bounty.com", password: "123", tag: Faker::JapaneseMedia::OnePiece.island,is_admin: false)
+
+    # default profile imgs
+    new_user = User.create!(username: name,profile_image:"https://avatars.dicebear.com/api/miniavs/#{name}.svg", email: "#{name.delete(' ')}@bounty.com", password: "123", tag: Faker::JapaneseMedia::OnePiece.island,is_admin: false)
     new_post = Post.create!(content: Faker::JapaneseMedia::OnePiece.quote, user_id: new_user.id)
     new_comment = Comment.create!(content: Faker::JapaneseMedia::OnePiece.quote, user_id: new_user.id, post_id: new_post.id)
 end

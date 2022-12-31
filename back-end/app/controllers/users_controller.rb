@@ -86,7 +86,7 @@ class UsersController < ApplicationController
     # if user already exists show that user else create new user
     user = User.find_by(email: "#{discord_user["id"]}@discord")
     if !user
-      user = User.create!(username: discord_user["username"], email:  "#{discord_user["id"]}@discord", password: "123", tag: Faker::JapaneseMedia::OnePiece.island,is_admin: false)
+      user = User.create!(username: discord_user["username"],profile_image:"https://cdn.discordapp.com/avatars/#{discord_user["id"]}/#{discord_user["avatar"]}.jpg", email:  "#{discord_user["id"]}@discord", password: "123", tag: Faker::JapaneseMedia::OnePiece.island,is_admin: false)
     end
     token = SuperToken.generate_token(user, request)
     render json: user, serializer: UserTokenSerializer

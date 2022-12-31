@@ -9,12 +9,11 @@ import { useSelector } from "react-redux";
 
 const SideNav = () => {
 	const user = useSelector((state: any) => state.user);
-
 	return (
 		<>
 			<div className="Home-sidenav">
 				<div className="Home-sidenav-user">
-					<img src={`https://avatars.dicebear.com/api/miniavs/${user.profile.username}.svg`} alt={user.profile.username} />
+					<img src={user.profile.profile_image} alt={user.profile.username} />
 					<div className="Home-sidenav-user-title">
 						<h1>{user.profile.username}</h1>
 						<p>@{user.profile.tag}</p>
