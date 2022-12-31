@@ -70,6 +70,28 @@ class UsersController < ApplicationController
     render json: @user
   end
   
+  def discord
+    # grab headers
+    accessToken = request.headers["authorization"].split(" ")[0]
+    tokenType = request.headers["authorization"].split(" ")[1]
+
+    # use discord auth api
+    url = 'https://discord.com/api/users/@me'
+    headers = {
+      authorization: "#{tokenType} #{accessToken}",
+    }
+    response = HTTParty.get(url, headers: headers)
+    discord_user = JSON.parse(response.body)
+
+    # if user already exists show that user else create new user
+    user = User.find_by(email: "#{discord_user["id"]}@discord")
+    if !user
+      user = User.create!(username: discord_user["username"], email:  "#{discord_user["id"]}@discord", password: "123", tag: Faker::JapaneseMedia::OnePiece.island,is_admin: false)
+    end
+    token = SuperToken.generate_token(user, request)
+    render json: user, serializer: UserTokenSerializer
+  end
+
   def update_password
     is_vaild_password =  @user.try(:authenticate, params[:old_password])
     if is_vaild_password

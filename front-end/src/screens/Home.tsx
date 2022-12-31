@@ -10,6 +10,7 @@ const Home = () => {
 				<p>Home</p>
 				<h3>You are {user.isAdmin ? "Admin" : "Not Admin"}</h3>
 				<h3>You are {user.isAuthenticated ? "logged in" : "Not logged in"}</h3>
+				<h3>Your name is {user.profile.username }</h3>
 			</div>
 			<div className="Home-explore">
 				<input type="text" placeholder="Search the all blue" />

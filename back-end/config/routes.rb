@@ -1,8 +1,5 @@
 Rails.application.routes.draw do
   resources :comments
-  resources :posts
-  resources :users
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   get "/", to: "banned_ips#testing"
   get "/my_posts", to: "posts#my_posts"
@@ -12,4 +9,5 @@ Rails.application.routes.draw do
   get "/signout", to: "users#signout"
   post "/login", to: "users#login"
   post "/ip_ban/:id", to: "banned_ips#ip_ban"
+  get "/auth/discord", to: "users#discord" 
 end
